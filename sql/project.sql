@@ -3,7 +3,7 @@ create table project
     pid         bigint auto_increment comment '任务ID'
         primary key,
     uid         int          not null comment '发布任务的用户ID',
-    type        int          not null comment '任务类别',
+    category        int          not null comment '任务类别',
     title       varchar(31)  null comment '任务标题',
     info        varchar(511) null comment '任务详情',
     deadline    date         null comment '任务投标截止时间',

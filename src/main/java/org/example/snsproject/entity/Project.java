@@ -14,7 +14,7 @@ import java.util.List;
 public class Project {
     private long pid; // 任务ID
     private int uid; // 发布任务的用户ID
-    private int type; // 任务类别
+    private int category; // 任务类别
     private String title; // 任务标题
     private String info; // 任务详情
     private Date deadline; // 任务投标截止时间

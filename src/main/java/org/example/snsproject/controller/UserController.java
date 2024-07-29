@@ -36,7 +36,7 @@ public class UserController {
             userService.register(user);
             User userLocal = userService.findUserByAccount(user.getAccount());
             Map<String,Object> claims = new HashMap<>();
-            claims.put("id",userLocal.getUid());
+            claims.put("id",userLocal.getId());
             claims.put("account",userLocal.getAccount());
             String token = JwtUtil.genToken(claims);
             //把token存入redis中
@@ -69,7 +69,7 @@ public class UserController {
         if(Md5Util.getMD5String(user.getPassword()).equals(loginUser.getPassword())){
             //登录成功
             Map<String,Object> claims = new HashMap<>();
-            claims.put("id",loginUser.getUid());
+            claims.put("id",loginUser.getId());
             claims.put("account",loginUser.getAccount());
             String token = JwtUtil.genToken(claims);
             //把token存入redis中

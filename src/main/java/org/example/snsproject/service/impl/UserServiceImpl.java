@@ -1,9 +1,5 @@
 package org.example.snsproject.service.impl;
 
-import org.apache.shiro.crypto.RandomNumberGenerator;
-import org.apache.shiro.crypto.SecureRandomNumberGenerator;
-import org.apache.shiro.crypto.hash.SimpleHash;
-import org.apache.shiro.util.ByteSource;
 import org.example.snsproject.entity.User;
 import org.example.snsproject.mapper.UserMapper;
 import org.example.snsproject.service.UserService;

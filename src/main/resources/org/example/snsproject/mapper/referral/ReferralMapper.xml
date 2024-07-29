@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.snsproject.mapper.referral.ReferralMapper">
+
+    <resultMap id="ArticleBriefResultMap" type="org.example.snsproject.entity.blog.Article">
+        <id column="id" property="id"/>
+        <result property="commentCounts" column="comment_counts"/>
+        <result property="createDate" column="createDate"/>
+        <result property="summary" column="summary"/>
+        <result property="title" column="title"/>
+        <result property="viewCounts" column="view_counts"/>
+        <result property="weight" column="weight"/>
+        <association property="author" javaType="org.example.snsproject.entity.User">
+            <id property="id" column="author_id"/>
+            <result property="nickname" column="nickname"/>
+        </association>
+        <collection property="tags" ofType="org.example.snsproject.entity.blog.Tag">
+            <id property="id" column="tag_id"/>
+            <result property="tagname" column="tagname"/>
+        </collection>
+    </resultMap>
+
+    <select id="articleList" resultMap="ArticleBriefResultMap">
+        select * from referral_brief, user, referral_tech_link, tech
+        <where>
+            <if test="year != -1">
+                year(createDate) = #{year}
+            </if>
+            <if test="month != -1">
+                and month(createdate) = #{month}
+            </if>
+            <if test="tagId != -1">
+                and referral_tech_link.tag_id = #{tagId}
+            </if>
+            <if test="categoryId != -1">
+                and category_id = #{categoryId}
+            </if>
+            and referral_brief.author_id=user.id
+            and referral_brief.id=referral_tech_link.article_id
+            and referral_tech_link.tag_id=tech.id
+        </where>
+        ORDER BY ${name} ${sort}
+    </select>
+
+
+    <resultMap id="ArticleDetailResultMap" type="org.example.snsproject.entity.blog.Article">
+        <id column="id" property="id"/>
+        <result property="commentCounts" column="comment_counts"/>
+        <result property="createDate" column="createDate"/>
+        <result property="summary" column="summary"/>
+        <result property="title" column="title"/>
+        <result property="viewCounts" column="view_counts"/>
+        <result property="weight" column="weight"/>
+        <association property="body" javaType="org.example.snsproject.entity.blog.Article_body">
+            <id property="id" column="body_id"/>
+            <result property="content" column="content"/>
+        </association>
+        <association property="author" javaType="org.example.snsproject.entity.User">
+            <id property="id" column="author_id"/>
+            <result property="avatar" column="avatar"/>
+            <result property="nickname" column="nickname"/>
+        </association>
+        <association property="category" javaType="org.example.snsproject.entity.blog.Category">
+            <id property="id" column="category_id"/>
+            <result property="avatar" column="avatar"/>
+            <result property="categoryname" column="category_name"/>
+            <result property="description" column="description"/>
+        </association>
+        <collection property="tags" ofType="org.example.snsproject.entity.blog.Tag">
+            <id property="id" column="tag_id"/>
+            <result property="tagname" column="tagname"/>
+        </collection>
+    </resultMap>
+
+    <select id="articleDetail" resultMap="ArticleDetailResultMap">
+        select *  from referral_brief, user, referral_tech_link, tech, company, referral_body
+        <where>
+            referral_brief.author_id=user.id
+            and referral_brief.body_id=referral_body.id
+            and referral_brief.category_id=company.id
+            and referral_brief.id=referral_tech_link.article_id
+            and referral_tech_link.tag_id=tech.id
+            and referral_brief.id=#{id}
+        </where>
+    </select>
+
+</mapper>

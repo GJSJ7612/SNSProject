@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class User implements Serializable{
 
     @NotNull
-    private int uid;
+    private int id;
     private String account;
     private String password;
     @URL

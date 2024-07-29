@@ -21,11 +21,11 @@ public class ProjectCreationController {
      * @param project 项目
      * @return 项目ID
      */
-    @PostMapping("/project/create")
+    @PostMapping("/projects/create")
     public Result<Long> createProject(@RequestBody Project project){
-        log.info("新建项目：{}",project);
-        pcs.createProject(project);
-        return Result.success();
+        log.info("新建项目：{}", project);
+        long id = pcs.createProject(project);
+        return Result.success(id);
     }
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 public interface ArticleService {
 
     //查询文章列表（限制年月）
-    List<Article> articleList(Integer pageNumber, Integer pageSize, String name, String sort, Integer year, Integer month, Integer tagId, Integer categoryId);
+    List<Article> articleList(Integer pageNumber, Integer pageSize, String name, String sort, Integer year, Integer month, Integer tagId, Integer categoryId, String token);
 
 
     //获取最热文章
@@ -25,4 +25,10 @@ public interface ArticleService {
 
     //发布文章
     Article publishArticle(Article article);
+
+    //批准文章
+    void articleAgree(Integer id);
+
+    //拒绝文章
+    void articleReject(Integer id);
 }

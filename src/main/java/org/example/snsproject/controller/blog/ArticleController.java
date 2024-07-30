@@ -16,6 +16,7 @@ public class ArticleController {
 
     @GetMapping("/articles")
     public Result<List<Article>> articles(
+            @RequestHeader(value = "Oauth-Token", required = false)String token,
             Integer pageNumber, Integer pageSize,
             String  name, String sort,
             Integer year, Integer month,
@@ -31,7 +32,7 @@ public class ArticleController {
         if(categoryId == null){
             categoryId = -1;
         }
-        data = articleService.articleList(pageNumber,pageSize, name, sort, year, month, tagId, categoryId);
+        data = articleService.articleList(pageNumber,pageSize, name, sort, year, month, tagId, categoryId, token);
         return Result.success(data);
     }
 
@@ -69,5 +70,17 @@ public class ArticleController {
     public Result<Article> getArticleDetail(@PathVariable Integer id){
         Article data = articleService.articleDetail(id);
         return Result.success(data);
+    }
+
+    @GetMapping("/articles/agree/{id}")
+    public Result agreeArticle(@PathVariable Integer id){
+        articleService.articleAgree(id);
+        return Result.success();
+    }
+
+    @GetMapping("/articles/reject/{id}")
+    public Result rejectArticle(@PathVariable Integer id){
+        articleService.articleReject(id);
+        return Result.success();
     }
 }

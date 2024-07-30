@@ -8,4 +8,7 @@ public interface UserService {
 
     //用户注册
     void register(User user);
+
+    //更新用户信息
+    void updateUserDetail(User user);
 }

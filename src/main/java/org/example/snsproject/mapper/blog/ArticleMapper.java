@@ -1,6 +1,7 @@
 package org.example.snsproject.mapper.blog;
 
 import org.apache.ibatis.annotations.*;
+import org.example.snsproject.entity.User;
 import org.example.snsproject.entity.blog.Archives;
 import org.example.snsproject.entity.blog.Article;
 import org.example.snsproject.entity.blog.Article_body;
@@ -10,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface ArticleMapper {
 
-    List<Article> articleList(@Param("name") String name, @Param("sort") String sort, int year, int month, int tagId, int categoryId);
+    List<Article> articleList(@Param("name") String name, @Param("sort") String sort, int year, int month, int tagId, int categoryId, Integer userStatus);
 
     @Select("select id, title from article_brief order by view_counts desc limit 5")
     List<Article> hotArticle();
@@ -19,7 +20,7 @@ public interface ArticleMapper {
     List<Article> newArticle();
 
     @Select("select YEAR(createDate) AS year, MONTH(createDate) AS month, COUNT(*) AS count, SUM(comment_counts) AS commentCounts from article_brief " +
-            "GROUP BY YEAR(createDate), MONTH(createDate) ORDER BY year, month")
+            "where status=1 GROUP BY YEAR(createDate), MONTH(createDate) ORDER BY year, month")
     List<Archives> listArchives();
 
     Article articleDetail(Integer id);
@@ -41,4 +42,10 @@ public interface ArticleMapper {
 
     @Update("update article_brief set comment_counts=#{commentCount} where id=#{id}")
     void updateComment(Integer id, Integer commentCount);
+
+    @Update("update article_brief set status=1 where id=#{id}")
+    void articleAgree(Integer id);
+
+    @Update("update article_brief set status=2 where id=#{id}")
+    void articleReject(Integer id);
 }

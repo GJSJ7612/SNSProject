@@ -18,6 +18,7 @@ public class ReferralController {
     //获取内推
     @GetMapping("/recommend")
     public Result<List<Article>> articles(
+            @RequestHeader(value = "Oauth-Token", required = false)String token,
             Integer pageNumber, Integer pageSize,
             String  name, String sort,
             Integer year, Integer month,
@@ -33,7 +34,7 @@ public class ReferralController {
         if(categoryId == null){
             categoryId = -1;
         }
-        data = referralService.articleList(pageNumber,pageSize, name, sort, year, month, tagId, categoryId);
+        data = referralService.articleList(pageNumber,pageSize, name, sort, year, month, tagId, categoryId, token);
         return Result.success(data);
     }
 
@@ -77,5 +78,17 @@ public class ReferralController {
     public Result<Article> getArticleDetail(@PathVariable Integer id){
         Article data = referralService.articleDetail(id);
         return Result.success(data);
+    }
+
+    @GetMapping("/recommend/agree/{id}")
+    public Result agreeArticle(@PathVariable Integer id){
+        referralService.articleAgree(id);
+        return Result.success();
+    }
+
+    @GetMapping("/recommend/reject/{id}")
+    public Result rejectArticle(@PathVariable Integer id){
+        referralService.articleReject(id);
+        return Result.success();
     }
 }

@@ -3,6 +3,7 @@ package org.example.snsproject.controller;
 import org.example.snsproject.entity.Result;
 import org.example.snsproject.entity.User;
 import org.example.snsproject.service.UserService;
+import org.example.snsproject.utils.AliOssUtil;
 import org.example.snsproject.utils.JwtUtil;
 import org.example.snsproject.utils.Md5Util;
 import org.example.snsproject.utils.ThreadLocalUtil;
@@ -11,10 +12,12 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -74,7 +77,7 @@ public class UserController {
             String token = JwtUtil.genToken(claims);
             //把token存入redis中
             ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
-            valueOperations.set(token, token, 1, TimeUnit.HOURS);
+            valueOperations.set(token, token, 12, TimeUnit.HOURS);
             Map<String,Serializable> data = new HashMap<>();
             data.put("Oauth-Token",token);
             return Result.success(data);
@@ -88,4 +91,41 @@ public class UserController {
         ThreadLocalUtil.remove();
         return Result.success();
     }
+
+    @PostMapping("/users/updateUser")
+    public Result updateUser(@RequestBody User user) {
+        userService.updateUserDetail(user);
+        return Result.success();
+    }
+
+    @PostMapping("/users/updateAvatar")
+    public Result<String> uploadImage(MultipartFile file) {
+        try{
+            //把文件的内容存储到本地磁盘上
+            String originalFilename = file.getOriginalFilename();
+            //保证文章名称唯一
+            String filename = UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
+            //image.transferTo(new File("E:\\JAVA Project\\SNSProject\\src\\main\\resources\\static\\img\\" + filename));
+            String url = AliOssUtil.uploadFile(filename, file.getInputStream());
+            System.out.println(url);
+            return Result.success(url);
+        }catch (Exception e){
+            return Result.error(1);
+        }
+    }
+
+    /*@PostMapping("/users/updateAvatar")
+    public Result<String> uploadImage1(MultipartFile image) {
+        try{
+            //把文件的内容存储到本地磁盘上
+            String originalFilename = image.getOriginalFilename();
+            //保证文章名称唯一
+            String filename = UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
+            //image.transferTo(new File("E:\\JAVA Project\\SNSProject\\src\\main\\resources\\static\\img\\" + filename));
+            String url = AliOssUtil.uploadFile(filename, image.getInputStream());
+            return Result.success(url);
+        }catch (Exception e){
+            return Result.error(1);
+        }
+    }*/
 }

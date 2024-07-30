@@ -29,10 +29,8 @@ public class LoginInterceptor implements HandlerInterceptor {
             //从redis中获取相同的token
             ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
             String redisToken = ops.get(token);
-
             if (redisToken == null) {
                 //token失效
-                System.out.println("redisToken:" + redisToken);
                 throw new RuntimeException();
             }
             Map<String, Object> claims = JwtUtil.parseToken(token);

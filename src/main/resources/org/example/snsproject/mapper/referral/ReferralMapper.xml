@@ -37,6 +37,14 @@
             <if test="categoryId != -1">
                 and category_id = #{categoryId}
             </if>
+            <choose>
+                <when test="userStatus == 0">
+                    and referral_brief.status = 1
+                </when>
+                <when test="userStatus == 1">
+                    and referral_brief.status = 0
+                </when>
+            </choose>
             and referral_brief.author_id=user.id
             and referral_brief.id=referral_tech_link.article_id
             and referral_tech_link.tag_id=tech.id

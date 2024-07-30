@@ -1,10 +1,13 @@
 package org.example.snsproject.service.impl.blog;
 
+import org.example.snsproject.entity.User;
 import org.example.snsproject.entity.blog.Archives;
 import org.example.snsproject.entity.blog.Article;
 import org.example.snsproject.entity.blog.Tag;
 import org.example.snsproject.mapper.blog.ArticleMapper;
 import org.example.snsproject.service.ArticleService;
+import org.example.snsproject.service.UserService;
+import org.example.snsproject.utils.JwtUtil;
 import org.example.snsproject.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +21,21 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private UserService userService;
 
     @Override
-    public List<Article> articleList(Integer pageNumber, Integer pageSize, String name, String sort, Integer year, Integer month, Integer tagId, Integer categoryId) {
+    public List<Article> articleList(Integer pageNumber, Integer pageSize, String name, String sort, Integer year, Integer month, Integer tagId, Integer categoryId, String token) {
         //PageBean<Article_brief> pageBean = new PageBean<>();
         //PageHelper.startPage(pageNumber, pageSize);
         name = name.substring(2);
-        List<Article> article_briefs = articleMapper.articleList(name, sort, year, month, tagId, categoryId);
+        List<Article> article_briefs;
+        if( token == null || token.equals("undefined")){
+            article_briefs = articleMapper.articleList(name, sort, year, month, tagId, categoryId, 0);
+        }else{
+            User user = userService.findUserByAccount((String) JwtUtil.parseToken(token).get("account"));
+            article_briefs = articleMapper.articleList(name, sort, year, month, tagId, categoryId, user.getAdminStatus());
+        }
         /*Page<Article_brief> page = (Page<Article_brief>) article_briefs; // 强制类型转换
         pageBean.setTotal(page.getTotal());
         pageBean.setItems(page.getResult());*/
@@ -70,5 +81,15 @@ public class ArticleServiceImpl implements ArticleService {
         }
         article.setArticleId(article.getId());
         return article;
+    }
+
+    @Override
+    public void articleAgree(Integer id) {
+        articleMapper.articleAgree(id);
+    }
+
+    @Override
+    public void articleReject(Integer id) {
+        articleMapper.articleReject(id);
     }
 }

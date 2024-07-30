@@ -37,6 +37,14 @@
             <if test="categoryId != -1">
                 and category_id = #{categoryId}
             </if>
+            <choose>
+                <when test="userStatus == 0">
+                    and article_brief.status = 1
+                </when>
+                <when test="userStatus == 1">
+                    and article_brief.status = 0
+                </when>
+            </choose>
             and article_brief.author_id=user.id
             and article_brief.id=article_tag_link.article_id
             and article_tag_link.tag_id=tag.id

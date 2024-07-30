@@ -4,10 +4,13 @@ import org.example.snsproject.entity.User;
 import org.example.snsproject.mapper.UserMapper;
 import org.example.snsproject.service.UserService;
 import org.example.snsproject.utils.Md5Util;
+import org.example.snsproject.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,6 +34,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserDetail(User user) {
+        Map<String, Object> claims = ThreadLocalUtil.get();
+        Integer userId = (Integer) claims.get("id");
+        user.setId(userId);
         userMapper.updateUserDetail(user);
     }
 }

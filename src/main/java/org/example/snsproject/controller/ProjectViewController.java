@@ -1,6 +1,5 @@
 package org.example.snsproject.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.example.snsproject.entity.Result;
 import org.example.snsproject.entity.UserProject;
 import org.example.snsproject.service.ProjectViewService;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Slf4j
 @RestController
 public class ProjectViewController {
 

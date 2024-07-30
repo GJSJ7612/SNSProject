@@ -22,10 +22,9 @@ public class UserProjectDetail {
     private int priceLower; // 任务价格下限
     private int priceUpper; // 任务价格上限
     private String tel; // 联系方式
-    private int applied; // 无权限则为0，待申请则为1，已申请则为2
-    private List<Integer> applicantIDs;
-    private List<String> applicantAvatars;
-    private List<String> applicantNames;
-    // 若当前用户无权限查看该项目的申请者，则上面三者为null
-    private int receiverIndex; // 接收者在前面List中的下标，无权限则为-2，未选择接收者则为-1
+    private int applied; // 可查看详情为0，可申请为1，已申请但尚未确定接收者为2，已申请且申请成功为3，已申请但申请失败为4， 其他为-1
+    private List<Application> applications; // 申请详情
+    // 若当前用户无权限查看该项目的申请者，则上面四者为null
+    private int receiver; // 接收者的用户ID，未确定接收者为-1（默认值）
+    // 若当前用户无权获知接收者，即便已确定接收者，也返回-1
 }

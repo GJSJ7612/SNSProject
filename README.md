@@ -22,15 +22,15 @@ Headers
 
 Body raw JSON
 
-| 参数名         | 类型     | 是否必须 | 备注               |
-|-------------|--------|------|------------------|
-| category    | number | 必须   | 类别的ID            |
-| title       | string | 非必须  | 任务的标题            |
-| info        | string | 非必须  | 任务的详情            |
-| deadline    | string | 非必须  | 截止日期(yyyy-mm-dd) |
-| price_lower | number | 非必须  | 报价下限             |
-| price_upper | number | 非必须  | 报价上限             |
-| tel         | string | 非必须  | 联系方式             |
+| 参数名        | 类型     | 是否必须 | 备注               |
+|------------|--------|------|------------------|
+| category   | number | 必须   | 类别的ID            |
+| title      | string | 非必须  | 任务的标题            |
+| info       | string | 非必须  | 任务的详情            |
+| deadline   | string | 非必须  | 截止日期(yyyy-mm-dd) |
+| priceLower | number | 非必须  | 报价下限             |
+| priceUpper | number | 非必须  | 报价上限             |
+| tel        | string | 非必须  | 联系方式             |
 
 ```json
 {

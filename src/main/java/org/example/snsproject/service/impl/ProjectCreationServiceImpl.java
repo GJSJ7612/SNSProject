@@ -21,7 +21,6 @@ public class ProjectCreationServiceImpl implements ProjectCreationService {
     @Override
     public long createProject(Project project) {
         Map<String, Object> claims = ThreadLocalUtil.get();
-        log.info(claims.toString());
         project.setUid((Integer) claims.get("id"));
         project.setApplicants(null); // 无申请者
         project.setReceiver(-1); // 无接收项目者

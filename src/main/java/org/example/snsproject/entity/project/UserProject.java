@@ -1,4 +1,4 @@
-package org.example.snsproject.entity;
+package org.example.snsproject.entity.project;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,9 +16,9 @@ public class UserProject {
     private String nickname; // 用户昵称
     private int category; // 任务类别
     private String title; // 任务标题
-    private String info; // 任务详情，可减缩
+    private String info; // 任务详情，只取前32个字符
     private Date deadline; // 任务投标截止时间
     private int priceLower; // 任务价格下限
     private int priceUpper; // 任务价格上限
-    private String tel; // 联系方式
+    // 概览界面不需要联系方式
 }

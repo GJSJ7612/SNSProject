@@ -1,11 +1,12 @@
 package org.example.snsproject.service;
 
-import org.example.snsproject.entity.UserProject;
-
-import java.util.List;
+import org.example.snsproject.entity.project.Application;
+import org.example.snsproject.entity.project.UserProjectDetail;
 
 public interface ProjectService {
-    List<UserProject> brief();
+    UserProjectDetail detail(long pid);
 
-    UserProject detail(long pid);
+    long apply(long pid, Application application);
+
+    void choose(long pid, int uid);
 }

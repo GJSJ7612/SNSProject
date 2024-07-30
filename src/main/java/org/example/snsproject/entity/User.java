@@ -1,7 +1,6 @@
 package org.example.snsproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Email;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
@@ -23,10 +22,13 @@ public class User implements Serializable{
     private String email;
     private String phone;
     private String nickname;
-    @JsonIgnore
-    private int status;
+    private int adminStatus;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
+    private int sex;
+    private String birth;
+    private String address;
+    private String position;
 }

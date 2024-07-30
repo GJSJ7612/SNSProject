@@ -1,9 +1,5 @@
 package org.example.snsproject.service.impl;
 
-import org.apache.shiro.crypto.RandomNumberGenerator;
-import org.apache.shiro.crypto.SecureRandomNumberGenerator;
-import org.apache.shiro.crypto.hash.SimpleHash;
-import org.apache.shiro.util.ByteSource;
 import org.example.snsproject.entity.User;
 import org.example.snsproject.mapper.UserMapper;
 import org.example.snsproject.service.UserService;
@@ -27,9 +23,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(User user) {
         user.setPassword(Md5Util.getMD5String(user.getPassword()));
-        user.setStatus(0);
+        user.setAdminStatus(0);
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
         userMapper.register(user);
+    }
+
+    @Override
+    public void updateUserDetail(User user) {
+        userMapper.updateUserDetail(user);
     }
 }

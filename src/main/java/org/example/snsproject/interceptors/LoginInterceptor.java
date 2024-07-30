@@ -10,7 +10,6 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import java.util.Enumeration;
 import java.util.Map;
 
 @Component
@@ -26,7 +25,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
         //令牌验证
         String token = request.getHeader("Oauth-Token");
-        System.out.println(token);
         try {
             //从redis中获取相同的token
             ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();

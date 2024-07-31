@@ -3,52 +3,18 @@ import org.apache.ibatis.annotations.*;
 import org.example.snsproject.entity.User;
 import org.example.snsproject.entity.activity.*;
 import org.example.snsproject.entity.blog.Article;
+import org.example.snsproject.entity.blog.Tag;
 import org.springframework.data.annotation.Id;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
 public interface ActivityMapper {
 
-    @Select("select distinct * from activity_brief " +
-            "join user on activity_brief.author_id = user.id where end_date < now()")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "commentCounts", column = "comment_counts"),
-            @Result(property = "createDate", column = "createDate"),
-            @Result(property = "summary", column = "summary"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "viewCounts", column = "view_counts"),
-            @Result(property = "weight", column = "weight"),
-            @Result(property = "startDate", column = "start_date"),
-            @Result(property = "endDate", column = "end_date"),
-            @Result(property = "author", column = "author_id", one = @One(select = "selectAuthor")),
-            @Result(property = "tags", column = "id", one = @One(select = "selectTags"))
-    })
-    List<Activity> activitiesFinished();
+    List<Activity> activitiesFinished(Integer tagId, Integer categoryId, LocalDateTime currentDate);
 
-    @Select("SELECT id, nickname FROM user WHERE id = #{userId}")
-    User selectAuthor(@Param("userId") int userId);
-
-    @Select("SELECT distinct tagname FROM activity_tag_link join activity_tag on activity_tag_link.tag_id = activity_tag.id WHERE activity_tag_link.activity_id= #{activityId}")
-    List<Activity_tag> selectTags(@Param("activityId") int activityId);
-
-    @Select("select distinct * from activity_brief " +
-            "join user on activity_brief.author_id = user.id where end_date > now()")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "commentCounts", column = "comment_counts"),
-            @Result(property = "createDate", column = "createDate"),
-            @Result(property = "summary", column = "summary"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "viewCounts", column = "view_counts"),
-            @Result(property = "weight", column = "weight"),
-            @Result(property = "startDate", column = "start_date"),
-            @Result(property = "endDate", column = "end_date"),
-            @Result(property = "author", column = "author_id", one = @One(select = "selectAuthor")),
-            @Result(property = "tags", column = "id", one = @One(select = "selectTags"))
-    })
-    List<Activity> activitiesUnFinished();
+    List<Activity> activitiesUnFinished(Integer tagId, Integer categoryId, LocalDateTime currentDate);
 
     @Select("select id, title from activity_brief order by view_counts desc limit 5")
     List<Activity> hotActivities();
@@ -101,8 +67,27 @@ public interface ActivityMapper {
     List<Activity_archives> listArchivesActivities();
 
     @Select("select * from activity_brief where author_id=#{id}")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "commentCounts", column = "comment_counts"),
+            @Result(property = "createDate", column = "createDate"),
+            @Result(property = "summary", column = "summary"),
+            @Result(property = "title", column = "title"),
+            @Result(property = "viewCounts", column = "view_counts"),
+            @Result(property = "weight", column = "weight"),
+            @Result(property = "startDate", column = "start_date"),
+            @Result(property = "endDate", column = "end_date"),
+            @Result(property = "author", column = "author_id", one = @One(select = "selectAuthor")),
+            @Result(property = "tags", column = "id", one = @One(select = "selectTags"))
+    })
     List<Activity> getActivityUser(int id);
 
     @Update("update activity_brief set view_counts=view_counts+1 where id=#{id}")
     void updateComment(int id);
+
+    @Select("SELECT id, nickname ,email FROM user WHERE id = #{userId}")
+    User selectAuthor(@Param("userId") int userId);
+
+    @Select("SELECT distinct tagname FROM activity_tag_link join tag on activity_tag_link.tag_id = tag.id WHERE activity_tag_link.activity_id= #{activityId}")
+    List<Tag> selectTags(@Param("activityId") int activityId);
 }

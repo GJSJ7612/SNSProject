@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface ActivityService {
     //获取已结束的活动
-    List<Activity> activitiesFinished();
+    List<Activity> activitiesFinished(Integer tagId, Integer categoryId);
 
     //获取未结束的活动
-    List<Activity> activitiesUnFinished();
+    List<Activity> activitiesUnFinished(Integer tagId, Integer categoryId);
 
     //获取最热活动
     List<Activity> hotActivities();

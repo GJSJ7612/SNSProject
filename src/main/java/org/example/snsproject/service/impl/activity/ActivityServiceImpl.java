@@ -21,13 +21,13 @@ public class ActivityServiceImpl implements ActivityService {
     private ActivityMapper activityMapper;
 
     @Override
-    public List<Activity> activitiesFinished() {
-        return activityMapper.activitiesFinished();
+    public List<Activity> activitiesFinished(Integer tagId, Integer categoryId) {
+        return activityMapper.activitiesFinished(tagId, categoryId, LocalDateTime.now());
     }
 
     @Override
-    public List<Activity> activitiesUnFinished() {
-        return activityMapper.activitiesUnFinished();
+    public List<Activity> activitiesUnFinished(Integer tagId, Integer categoryId) {
+        return activityMapper.activitiesUnFinished(tagId, categoryId, LocalDateTime.now());
     }
 
     @Override

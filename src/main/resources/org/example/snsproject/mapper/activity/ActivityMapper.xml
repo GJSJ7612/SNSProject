@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.snsproject.mapper.activity.ActivityMapper">
+
+    <resultMap id="activitiesResultMap" type="org.example.snsproject.entity.activity.Activity">
+        <id column="id" property="id"/>
+        <result property="commentCounts" column="comment_counts"/>
+        <result property="createDate" column="createDate"/>
+        <result property="summary" column="summary"/>
+        <result property="title" column="title"/>
+        <result property="viewCounts" column="view_counts"/>
+        <result property="weight" column="weight"/>
+        <association property="author" javaType="org.example.snsproject.entity.User">
+            <id property="id" column="author_id"/>
+            <result property="nickname" column="nickname"/>
+            <result property="email" column="email"/>
+        </association>
+        <collection property="tags" ofType="org.example.snsproject.entity.activity.Activity_tag">
+            <id property="id" column="tag_id"/>
+            <result property="tagname" column="tagname"/>
+        </collection>
+    </resultMap>
+
+    <select id="activitiesFinished" resultMap="activitiesResultMap">
+        select * from activity_brief, user, activity_tag_link, sns_project.activity_tag
+        <where>
+            <if test="tagId != -1">
+                and activity_tag_link.tag_id = #{tagId}
+            </if>
+            <if test="categoryId != -1">
+                and category_id = #{categoryId}
+            </if>
+            and activity_brief.author_id=user.id
+            and activity_brief.id=activity_tag_link.activity_id
+            and activity_tag_link.tag_id=activity_tag.id
+            and activity_brief.end_date &lt; #{currentDate}
+        </where>
+    </select>
+
+    <select id="activitiesUnFinished" resultMap="activitiesResultMap">
+        select * from activity_brief, user, activity_tag_link, sns_project.activity_tag
+        <where>
+            <if test="tagId != -1">
+                and activity_tag_link.tag_id = #{tagId}
+            </if>
+            <if test="categoryId != -1">
+                and category_id = #{categoryId}
+            </if>
+            and activity_brief.author_id=user.id
+            and activity_brief.id=activity_tag_link.activity_id
+            and activity_tag_link.tag_id=activity_tag.id
+            and activity_brief.end_date &gt; #{currentDate}
+        </where>
+    </select>
+</mapper>

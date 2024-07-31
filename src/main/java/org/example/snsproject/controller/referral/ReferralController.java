@@ -99,7 +99,7 @@ public class ReferralController {
         return Result.success(data);
     }
 
-    @DeleteMapping("/recommend/delete/${id}")
+    @DeleteMapping("/recommend/delete/{id}")
     public Result deleteArticle(@PathVariable Integer id){
         referralService.deleteArticle(id);
         return Result.success();

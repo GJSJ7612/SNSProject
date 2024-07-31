@@ -18,14 +18,26 @@ public class ActivityController {
     private ActivityService activityService;
 
     @GetMapping("/activitiesFinished")
-    public Result<List<Activity>> activitiesFinished() {
-        List<Activity> data = activityService.activitiesFinished();
+    public Result<List<Activity>> activitiesFinished(Integer tagId, Integer categoryId) {
+        if(tagId == null){
+            tagId = -1;
+        }
+        if(categoryId == null){
+            categoryId = -1;
+        }
+        List<Activity> data = activityService.activitiesFinished(tagId, categoryId);
         return Result.success(data);
     }
 
     @GetMapping("/activitiesUnFinished")
-    public Result<List<Activity>> activitiesUnFinished() {
-        List<Activity> data = activityService.activitiesUnFinished();
+    public Result<List<Activity>> activitiesUnFinished(Integer tagId, Integer categoryId) {
+        if(tagId == null){
+            tagId = -1;
+        }
+        if(categoryId == null){
+            categoryId = -1;
+        }
+        List<Activity> data = activityService.activitiesUnFinished(tagId, categoryId);
         return Result.success(data);
     }
 

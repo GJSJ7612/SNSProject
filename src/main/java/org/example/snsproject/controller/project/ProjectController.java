@@ -5,10 +5,7 @@ import org.example.snsproject.entity.Result;
 import org.example.snsproject.entity.project.UserProjectDetail;
 import org.example.snsproject.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProjectController {
@@ -16,21 +13,21 @@ public class ProjectController {
     @Autowired
     private ProjectService ps;
 
-    @GetMapping("/projects/1")
+    @GetMapping("/projects/{pid}")
     public Result<UserProjectDetail> detail(@PathVariable long pid){
         UserProjectDetail upd = ps.detail(pid);
         return Result.success(upd);
     }
 
-    @PostMapping("/projects/2")
-    public Result<Long> apply(@PathVariable long pid, Application application) {
+    @PostMapping("/projects/{pid}/apply")
+    public Result<Long> apply(@PathVariable long pid, @RequestBody Application application) {
         long id = ps.apply(pid, application);
         // 获取申请操作的ID
         return Result.success(id);
     }
 
-    @PostMapping("/projects/3")
-    public Result<Object> choose(@PathVariable long pid, int uid) {
+    @PostMapping("/projects/{pid}/choose/{uid}")
+    public Result<Object> choose(@PathVariable long pid, @PathVariable int uid) {
         ps.choose(pid, uid);
         return Result.success();
     }

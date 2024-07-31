@@ -1,6 +1,6 @@
 package org.example.snsproject.service;
 
-import org.example.snsproject.entity.UserProject;
+import org.example.snsproject.entity.project.UserProject;
 
 import java.util.List;
 

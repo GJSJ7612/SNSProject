@@ -1,5 +1,8 @@
 package org.example.snsproject.entity.activity;
 
+import lombok.Data;
+
+@Data
 public class Activity_archives {
     private int commentCounts;
     private int count;

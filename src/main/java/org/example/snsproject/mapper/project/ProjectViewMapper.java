@@ -1,10 +1,10 @@
-package org.example.snsproject.mapper;
+package org.example.snsproject.mapper.project;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
-import org.example.snsproject.entity.UserProject;
+import org.example.snsproject.entity.project.UserProject;
 
 import java.util.List;
 

@@ -113,19 +113,4 @@ public class UserController {
             return Result.error(1);
         }
     }
-
-    /*@PostMapping("/users/updateAvatar")
-    public Result<String> uploadImage1(MultipartFile image) {
-        try{
-            //把文件的内容存储到本地磁盘上
-            String originalFilename = image.getOriginalFilename();
-            //保证文章名称唯一
-            String filename = UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
-            //image.transferTo(new File("E:\\JAVA Project\\SNSProject\\src\\main\\resources\\static\\img\\" + filename));
-            String url = AliOssUtil.uploadFile(filename, image.getInputStream());
-            return Result.success(url);
-        }catch (Exception e){
-            return Result.error(1);
-        }
-    }*/
 }

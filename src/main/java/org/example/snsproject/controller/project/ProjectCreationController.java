@@ -1,7 +1,7 @@
-package org.example.snsproject.controller;
+package org.example.snsproject.controller.project;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.snsproject.entity.Project;
+import org.example.snsproject.entity.project.Project;
 import org.example.snsproject.entity.Result;
 import org.example.snsproject.service.ProjectCreationService;
 import org.springframework.beans.factory.annotation.Autowired;

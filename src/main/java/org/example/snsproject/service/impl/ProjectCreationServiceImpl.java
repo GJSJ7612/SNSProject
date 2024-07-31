@@ -1,8 +1,8 @@
 package org.example.snsproject.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.snsproject.entity.Project;
-import org.example.snsproject.mapper.ProjectCreationMapper;
+import org.example.snsproject.entity.project.Project;
+import org.example.snsproject.mapper.project.ProjectCreationMapper;
 import org.example.snsproject.service.ProjectCreationService;
 import org.example.snsproject.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
-package org.example.snsproject.controller;
+package org.example.snsproject.controller.project;
 
-import org.example.snsproject.entity.Application;
+import org.example.snsproject.entity.project.Application;
 import org.example.snsproject.entity.Result;
-import org.example.snsproject.entity.UserProjectDetail;
+import org.example.snsproject.entity.project.UserProjectDetail;
 import org.example.snsproject.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

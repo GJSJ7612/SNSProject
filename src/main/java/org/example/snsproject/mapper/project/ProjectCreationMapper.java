@@ -1,9 +1,9 @@
-package org.example.snsproject.mapper;
+package org.example.snsproject.mapper.project;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
-import org.example.snsproject.entity.Project;
+import org.example.snsproject.entity.project.Project;
 
 @Mapper
 public interface ProjectCreationMapper {

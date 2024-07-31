@@ -27,7 +27,7 @@ CREATE TABLE `activity_body` (
   `content` longtext COMMENT '活动内容',
   `content_html` longtext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,6 +36,7 @@ CREATE TABLE `activity_body` (
 
 LOCK TABLES `activity_body` WRITE;
 /*!40000 ALTER TABLE `activity_body` DISABLE KEYS */;
+INSERT INTO `activity_body` VALUES (1,'活动测试',NULL),(2,'不知道写啥了',NULL),(3,'随便写的',NULL);
 /*!40000 ALTER TABLE `activity_body` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -49,27 +50,25 @@ DROP TABLE IF EXISTS `activity_brief`;
 CREATE TABLE `activity_brief` (
   `id` int NOT NULL AUTO_INCREMENT,
   `comment_counts` int DEFAULT '0',
-  `createDate` date DEFAULT NULL,
+  `createDate` datetime DEFAULT NULL,
   `summary` text,
   `title` varchar(255) DEFAULT NULL,
   `view_counts` int DEFAULT '0',
   `weight` int DEFAULT NULL,
-  `start_date` date DEFAULT NULL,
-  `end_date` date DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
   `author_id` int DEFAULT NULL,
   `body_id` int DEFAULT NULL,
   `category_id` int DEFAULT NULL,
-  `tag_id` int DEFAULT NULL,
+  `status` int DEFAULT '0' COMMENT '0-未开始，1-已结束',
   PRIMARY KEY (`id`),
   KEY `activity_brief_activity_body_id_fk` (`body_id`),
   KEY `activity_brief_activity_catgory_id_fk` (`category_id`),
-  KEY `activity_brief_activity_tag_id_fk` (`tag_id`),
   KEY `activity_brief_user_id_fk` (`author_id`),
   CONSTRAINT `activity_brief_activity_body_id_fk` FOREIGN KEY (`body_id`) REFERENCES `activity_body` (`id`),
   CONSTRAINT `activity_brief_activity_catgory_id_fk` FOREIGN KEY (`category_id`) REFERENCES `activity_catgory` (`id`),
-  CONSTRAINT `activity_brief_activity_tag_id_fk` FOREIGN KEY (`tag_id`) REFERENCES `activity_tag` (`id`),
   CONSTRAINT `activity_brief_user_id_fk` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,6 +77,7 @@ CREATE TABLE `activity_brief` (
 
 LOCK TABLES `activity_brief` WRITE;
 /*!40000 ALTER TABLE `activity_brief` DISABLE KEYS */;
+INSERT INTO `activity_brief` VALUES (1,0,'2024-07-30 14:02:27','活动测试','活动测试',1005,0,'2024-07-30 14:02:48','2024-07-31 14:02:49',1,1,2,0),(2,0,'2024-07-30 14:03:06','测试2','测试2',684,0,'2024-07-26 14:03:20','2024-07-28 14:04:57',1,2,3,0),(3,0,'2024-07-30 14:09:15','哈哈哈哈','哈哈哈哈',48585,0,'2024-08-01 14:09:49','2024-08-02 14:09:53',1,3,1,0);
 /*!40000 ALTER TABLE `activity_brief` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +94,7 @@ CREATE TABLE `activity_catgory` (
   `categoryname` varchar(255) DEFAULT NULL,
   `description` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,6 +103,7 @@ CREATE TABLE `activity_catgory` (
 
 LOCK TABLES `activity_catgory` WRITE;
 /*!40000 ALTER TABLE `activity_catgory` DISABLE KEYS */;
+INSERT INTO `activity_catgory` VALUES (1,NULL,'聚餐',NULL),(2,NULL,'健身',NULL),(3,NULL,'团建',NULL);
 /*!40000 ALTER TABLE `activity_catgory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,7 +132,7 @@ CREATE TABLE `activity_comment` (
   CONSTRAINT `activity_comment_activity_comment_id_fk` FOREIGN KEY (`parent_id`) REFERENCES `activity_comment` (`id`),
   CONSTRAINT `activity_comment_user_id_fk` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`),
   CONSTRAINT `activity_comment_user_id_fk_2` FOREIGN KEY (`to_user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -140,6 +141,7 @@ CREATE TABLE `activity_comment` (
 
 LOCK TABLES `activity_comment` WRITE;
 /*!40000 ALTER TABLE `activity_comment` DISABLE KEYS */;
+INSERT INTO `activity_comment` VALUES (1,'评论1','2024-07-30',1,1,NULL,NULL,1),(2,'回复','2024-07-30',1,2,1,1,2);
 /*!40000 ALTER TABLE `activity_comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,7 +157,7 @@ CREATE TABLE `activity_tag` (
   `avatar` varchar(255) DEFAULT NULL,
   `tagname` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,6 +166,7 @@ CREATE TABLE `activity_tag` (
 
 LOCK TABLES `activity_tag` WRITE;
 /*!40000 ALTER TABLE `activity_tag` DISABLE KEYS */;
+INSERT INTO `activity_tag` VALUES (1,NULL,'生活'),(2,NULL,'学习'),(3,NULL,'交友');
 /*!40000 ALTER TABLE `activity_tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,7 +193,35 @@ CREATE TABLE `activity_tag_link` (
 
 LOCK TABLES `activity_tag_link` WRITE;
 /*!40000 ALTER TABLE `activity_tag_link` DISABLE KEYS */;
+INSERT INTO `activity_tag_link` VALUES (1,1),(1,2),(2,1),(2,3),(3,3);
 /*!40000 ALTER TABLE `activity_tag_link` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `application`
+--
+
+DROP TABLE IF EXISTS `application`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `application` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '申请操作的ID',
+  `uid` int NOT NULL COMMENT '申请者ID',
+  `pid` bigint NOT NULL COMMENT '任务ID',
+  `bid` int DEFAULT NULL COMMENT '报价',
+  `time` date DEFAULT NULL COMMENT '预计完成时间',
+  `resume` varchar(127) DEFAULT NULL COMMENT '申请者简历',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `application`
+--
+
+LOCK TABLES `application` WRITE;
+/*!40000 ALTER TABLE `application` DISABLE KEYS */;
+/*!40000 ALTER TABLE `application` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -413,6 +444,38 @@ INSERT INTO `company` VALUES (1,'/company/baidu.jpeg','百度',NULL),(2,'/compan
 UNLOCK TABLES;
 
 --
+-- Table structure for table `project`
+--
+
+DROP TABLE IF EXISTS `project`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `project` (
+  `pid` bigint NOT NULL AUTO_INCREMENT COMMENT '任务ID',
+  `uid` int NOT NULL COMMENT '发布任务的用户ID',
+  `category` int NOT NULL COMMENT '任务类别',
+  `title` varchar(31) DEFAULT NULL COMMENT '任务标题',
+  `info` varchar(511) DEFAULT NULL COMMENT '任务详情',
+  `deadline` date DEFAULT NULL COMMENT '任务投标截止时间',
+  `price_lower` int DEFAULT NULL COMMENT '任务价格下限',
+  `price_upper` int DEFAULT NULL COMMENT '任务价格上限',
+  `tel` varchar(15) DEFAULT NULL COMMENT '联系方式',
+  `receiver` int DEFAULT NULL COMMENT '最终接收项目者的ID',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`pid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `project`
+--
+
+LOCK TABLES `project` WRITE;
+/*!40000 ALTER TABLE `project` DISABLE KEYS */;
+/*!40000 ALTER TABLE `project` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `referral_body`
 --
 
@@ -585,7 +648,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (0,'admin','21232f297a57a5a743894a0e4a801fc3','https://sns-project.oss-cn-beijing.aliyuncs.com/5b96cc8b-fedc-4aef-87de-fbb0b0c4df28.jpg','w','222','admin',1,'2024-07-29','2024-07-29',0,'2024-07-08T16:00:00.000Z','ff','fff'),(1,'123456','e10adc3949ba59abbe56e057f20f883e','static/user/admin.png',NULL,NULL,'123456',0,'2024-07-26','2024-07-26',NULL,NULL,NULL,NULL),(2,'111','698d51a19d8a121ce581499d7b701668','static/user/user_1.png',NULL,NULL,'小号',0,'2024-07-28','2024-07-28',NULL,NULL,NULL,NULL);
+INSERT INTO `user` VALUES (0,'admin','21232f297a57a5a743894a0e4a801fc3','https://sns-project.oss-cn-beijing.aliyuncs.com/5b96cc8b-fedc-4aef-87de-fbb0b0c4df28.jpg','w','222','admin',1,'2024-07-29','2024-07-29',0,'2024-07-08T16:00:00.000Z','ff','fff'),(1,'123456','e10adc3949ba59abbe56e057f20f883e','https://sns-project.oss-cn-beijing.aliyuncs.com/77f2be4b-5410-49d4-9245-8238117d5a5a.png','123@123.com','123456789','123456',0,'2024-07-26','2024-07-26',1,'2024-07-10T16:00:00.000Z','asdsa','啊大苏打'),(2,'111','698d51a19d8a121ce581499d7b701668','static/user/user_1.png',NULL,NULL,'小号',0,'2024-07-28','2024-07-28',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -598,4 +661,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-30 11:40:03
+-- Dump completed on 2024-07-31  0:22:33

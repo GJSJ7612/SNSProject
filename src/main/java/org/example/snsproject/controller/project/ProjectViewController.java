@@ -1,7 +1,7 @@
-package org.example.snsproject.controller;
+package org.example.snsproject.controller.project;
 
 import org.example.snsproject.entity.Result;
-import org.example.snsproject.entity.UserProject;
+import org.example.snsproject.entity.project.UserProject;
 import org.example.snsproject.service.ProjectViewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

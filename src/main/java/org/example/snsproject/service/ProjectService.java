@@ -1,7 +1,7 @@
 package org.example.snsproject.service;
 
-import org.example.snsproject.entity.Application;
-import org.example.snsproject.entity.UserProjectDetail;
+import org.example.snsproject.entity.project.Application;
+import org.example.snsproject.entity.project.UserProjectDetail;
 
 public interface ProjectService {
     UserProjectDetail detail(long pid);

@@ -13,10 +13,10 @@ public class Activity {
     private int id;
     private int commentCounts;
     @JsonFormat(pattern = "YYYY.MM.dd HH:mm")
-    private LocalDateTime createTime;
+    private LocalDateTime createDate;
     private String summary;
     private String title;
-    private String viewCounts;
+    private int viewCounts;
     private int weight;
     private LocalDateTime startDate;
     private LocalDateTime endDate;

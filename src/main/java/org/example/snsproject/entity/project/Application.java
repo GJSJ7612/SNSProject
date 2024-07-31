@@ -1,4 +1,4 @@
-package org.example.snsproject.entity;
+package org.example.snsproject.entity.project;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

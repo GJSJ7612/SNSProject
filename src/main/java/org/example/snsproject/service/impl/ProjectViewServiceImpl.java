@@ -1,7 +1,7 @@
 package org.example.snsproject.service.impl;
 
-import org.example.snsproject.entity.UserProject;
-import org.example.snsproject.mapper.ProjectViewMapper;
+import org.example.snsproject.entity.project.UserProject;
+import org.example.snsproject.mapper.project.ProjectViewMapper;
 import org.example.snsproject.service.ProjectViewService;
 import org.example.snsproject.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
-package org.example.snsproject.mapper;
+package org.example.snsproject.mapper.project;
 
 import org.apache.ibatis.annotations.*;
-import org.example.snsproject.entity.Application;
-import org.example.snsproject.entity.UserProjectDetail;
+import org.example.snsproject.entity.project.Application;
+import org.example.snsproject.entity.project.UserProjectDetail;
 
 import java.util.List;
 

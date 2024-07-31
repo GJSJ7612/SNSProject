@@ -16,20 +16,20 @@ public class ProjectController {
     @Autowired
     private ProjectService ps;
 
-    @GetMapping("/projects/{pid}")
+    @GetMapping("/projects/1")
     public Result<UserProjectDetail> detail(@PathVariable long pid){
         UserProjectDetail upd = ps.detail(pid);
         return Result.success(upd);
     }
 
-    @PostMapping("/projects/{pid}")
+    @PostMapping("/projects/2")
     public Result<Long> apply(@PathVariable long pid, Application application) {
         long id = ps.apply(pid, application);
         // 获取申请操作的ID
         return Result.success(id);
     }
 
-    @PostMapping("/projects/{pid}")
+    @PostMapping("/projects/3")
     public Result<Object> choose(@PathVariable long pid, int uid) {
         ps.choose(pid, uid);
         return Result.success();

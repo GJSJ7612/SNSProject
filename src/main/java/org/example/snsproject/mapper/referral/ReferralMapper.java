@@ -1,9 +1,11 @@
 package org.example.snsproject.mapper.referral;
 
 import org.apache.ibatis.annotations.*;
+import org.example.snsproject.entity.User;
 import org.example.snsproject.entity.blog.Archives;
 import org.example.snsproject.entity.blog.Article;
 import org.example.snsproject.entity.blog.Article_body;
+import org.example.snsproject.entity.blog.Tag;
 
 import java.util.List;
 
@@ -47,4 +49,33 @@ public interface ReferralMapper {
 
     @Update("update referral_brief set status=2 where id=#{id}")
     void articleReject(Integer id);
+
+    @Select("select * from referral_brief join user on referral_brief.author_id = user.id where referral_brief.author_id=#{id}")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "commentCounts", column = "comment_counts"),
+            @Result(property = "createDate", column = "createDate"),
+            @Result(property = "summary", column = "summary"),
+            @Result(property = "title", column = "title"),
+            @Result(property = "viewCounts", column = "view_counts"),
+            @Result(property = "weight", column = "weight"),
+            @Result(property = "author", column = "author_id", one = @One(select = "selectAuthor")),
+            @Result(property = "tags", column = "id", one = @One(select = "selectTags")),
+    })
+    List<Article> mineArticles(int id);
+
+    @Select("SELECT id, nickname FROM user WHERE id = #{userId}")
+    User selectAuthor(@Param("userId") int userId);
+
+    @Select("SELECT distinct tagname FROM referral_tech_link join tag on referral_tech_link.tag_id = tag.id WHERE referral_tech_link.article_id= #{articleId}")
+    List<Tag> selectTags(@Param("articleId") int articleId);
+
+    @Delete("delete from referral_tech_link where article_id=#{id}")
+    void deleteArticleTags(Integer id);
+
+    @Delete("delete from referral_brief where id=#{id}")
+    void deleteArticle(Integer id);
+
+    @Delete("delete from referral_body where id=#{id}")
+    void deleteArticleBody(int id);
 }

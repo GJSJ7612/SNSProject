@@ -2,9 +2,11 @@ package org.example.snsproject.mapper.blog;
 
 import org.apache.ibatis.annotations.*;
 import org.example.snsproject.entity.User;
+import org.example.snsproject.entity.activity.Activity_tag;
 import org.example.snsproject.entity.blog.Archives;
 import org.example.snsproject.entity.blog.Article;
 import org.example.snsproject.entity.blog.Article_body;
+import org.example.snsproject.entity.blog.Tag;
 
 import java.util.List;
 
@@ -48,4 +50,33 @@ public interface ArticleMapper {
 
     @Update("update article_brief set status=2 where id=#{id}")
     void articleReject(Integer id);
+
+    @Select("select * from article_brief join user on article_brief.author_id = user.id where article_brief.author_id=#{id}")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "commentCounts", column = "comment_counts"),
+            @Result(property = "createDate", column = "createDate"),
+            @Result(property = "summary", column = "summary"),
+            @Result(property = "title", column = "title"),
+            @Result(property = "viewCounts", column = "view_counts"),
+            @Result(property = "weight", column = "weight"),
+            @Result(property = "author", column = "author_id", one = @One(select = "selectAuthor")),
+            @Result(property = "tags", column = "id", one = @One(select = "selectTags")),
+    })
+    List<Article> mineArticles(int id);
+
+    @Select("SELECT id, nickname ,email FROM user WHERE id = #{userId}")
+    User selectAuthor(@Param("userId") int userId);
+
+    @Select("SELECT distinct tagname FROM article_tag_link join tag on article_tag_link.tag_id = tag.id WHERE article_tag_link.article_id= #{articleId}")
+    List<Tag> selectTags(@Param("articleId") int articleId);
+
+    @Delete("delete from article_brief where id=#{id}")
+    void deleteArticle(Integer id);
+
+    @Delete("delete from article_tag_link where article_id=#{id}")
+    void deleteArticleTags(Integer id);
+
+    @Delete("delete from article_body where id=#{id}")
+    void deleteArticleBody(Integer id);
 }

@@ -92,4 +92,19 @@ public class ReferralServiceImpl implements ReferralService {
     public void articleReject(Integer id) {
         referralMapper.articleReject(id);
     }
+
+    @Override
+    public List<Article> mineArticles() {
+        Map<String, Object> claims = ThreadLocalUtil.get();
+        int id = (int) claims.get("id");
+        return referralMapper.mineArticles(id);
+    }
+
+    @Override
+    public void deleteArticle(Integer id) {
+        Article article = referralMapper.articleDetail(id);
+        referralMapper.deleteArticleTags(id);
+        referralMapper.deleteArticle(id);
+        referralMapper.deleteArticleBody(article.getBody().getId());
+    }
 }

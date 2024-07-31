@@ -1,5 +1,6 @@
 package org.example.snsproject.service;
 
+import org.example.snsproject.entity.Result;
 import org.example.snsproject.entity.blog.Archives;
 import org.example.snsproject.entity.blog.Article;
 
@@ -31,4 +32,10 @@ public interface ArticleService {
 
     //拒绝文章
     void articleReject(Integer id);
+
+    //获取当前用户文章
+    List<Article> mineArticles();
+
+    //删除文章
+    void deleteArticle(Integer id);
 }

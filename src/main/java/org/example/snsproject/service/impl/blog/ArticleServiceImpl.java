@@ -1,5 +1,6 @@
 package org.example.snsproject.service.impl.blog;
 
+import org.example.snsproject.entity.Result;
 import org.example.snsproject.entity.User;
 import org.example.snsproject.entity.blog.Archives;
 import org.example.snsproject.entity.blog.Article;
@@ -91,5 +92,21 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void articleReject(Integer id) {
         articleMapper.articleReject(id);
+    }
+
+    @Override
+    public List<Article> mineArticles() {
+        Map<String, Object> claims = ThreadLocalUtil.get();
+        int id = (int) claims.get("id");
+        return articleMapper.mineArticles(id);
+    }
+
+    @Override
+    public void deleteArticle(Integer id) {
+        Article article = articleMapper.articleDetail(id);
+        articleMapper.deleteArticleTags(id);
+        articleMapper.deleteArticle(id);
+        articleMapper.deleteArticleBody(article.getBody().getId());
+
     }
 }

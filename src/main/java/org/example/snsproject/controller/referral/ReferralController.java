@@ -1,5 +1,6 @@
 package org.example.snsproject.controller.referral;
 
+import org.apache.ibatis.annotations.Delete;
 import org.example.snsproject.entity.Result;
 import org.example.snsproject.entity.blog.Archives;
 import org.example.snsproject.entity.blog.Article;
@@ -89,6 +90,18 @@ public class ReferralController {
     @GetMapping("/recommend/reject/{id}")
     public Result rejectArticle(@PathVariable Integer id){
         referralService.articleReject(id);
+        return Result.success();
+    }
+
+    @GetMapping("/recommend/mine")
+    public Result<List<Article>> mineArticles(){
+        List<Article> data = referralService.mineArticles();
+        return Result.success(data);
+    }
+
+    @DeleteMapping("/recommend/delete/${id}")
+    public Result deleteArticle(@PathVariable Integer id){
+        referralService.deleteArticle(id);
         return Result.success();
     }
 }

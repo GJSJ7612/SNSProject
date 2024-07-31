@@ -38,7 +38,7 @@ public interface ActivityCommentMapper {
     void createCommentNoPT(Activity_comment activityComment);
 
 
-    @Insert("INSERT into activity_comment(content, create_date, activity_id, author_id, level) " +
-            "values(#{content}, #{createDate}, #{activityId}, #{authorId}, #{level})")
+    @Insert("INSERT into activity_comment(content, create_date, activity_id, author_id, level, parent_id, to_user) " +
+            "values(#{content}, #{createDate}, #{activityId}, #{authorId}, #{level}, #{parentId}, #{toUid})")
     void createComment(Activity_comment activityComment);
 }

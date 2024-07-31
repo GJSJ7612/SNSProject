@@ -29,4 +29,8 @@ public interface ReferralService {
     void articleAgree(Integer id);
 
     void articleReject(Integer id);
+
+    List<Article> mineArticles();
+
+    void deleteArticle(Integer id);
 }

@@ -18,7 +18,9 @@ public class Activity {
     private String title;
     private int viewCounts;
     private int weight;
+    @JsonFormat(pattern = "YYYY.MM.dd")
     private LocalDateTime startDate;
+    @JsonFormat(pattern = "YYYY.MM.dd")
     private LocalDateTime endDate;
     private int authorId;
     private User author;

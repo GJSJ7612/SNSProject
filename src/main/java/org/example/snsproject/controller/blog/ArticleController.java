@@ -1,4 +1,5 @@
 package org.example.snsproject.controller.blog;
+import org.apache.ibatis.annotations.Delete;
 import org.example.snsproject.entity.blog.Archives;
 import org.example.snsproject.entity.blog.Article;
 import org.example.snsproject.entity.Result;
@@ -81,6 +82,18 @@ public class ArticleController {
     @GetMapping("/articles/reject/{id}")
     public Result rejectArticle(@PathVariable Integer id){
         articleService.articleReject(id);
+        return Result.success();
+    }
+
+    @GetMapping("/articles/mine")
+    public Result<List<Article>> mineArticles(){
+        List<Article> data = articleService.mineArticles();
+        return Result.success(data);
+    }
+
+    @DeleteMapping("/articles/delete/{id}")
+    public Result deleteArticle(@PathVariable Integer id){
+        articleService.deleteArticle(id);
         return Result.success();
     }
 }

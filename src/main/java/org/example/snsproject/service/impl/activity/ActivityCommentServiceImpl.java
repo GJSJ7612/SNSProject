@@ -2,8 +2,6 @@ package org.example.snsproject.service.impl.activity;
 
 import org.example.snsproject.entity.activity.Activity;
 import org.example.snsproject.entity.activity.Activity_comment;
-import org.example.snsproject.entity.blog.Article;
-import org.example.snsproject.entity.blog.Comment;
 import org.example.snsproject.mapper.activity.ActivityCommentMapper;
 import org.example.snsproject.mapper.activity.ActivityMapper;
 import org.example.snsproject.service.ActivityCommentService;
@@ -43,7 +41,7 @@ public class ActivityCommentServiceImpl implements ActivityCommentService {
             activityCommentMapper.createCommentNoPT(activityComment);
         }
         else activityCommentMapper.createComment(activityComment);
-        Activity activity = activityMapper.viewActivities(activityComment.getArticleId());
+        Activity activity = activityMapper.viewActivities(activityComment.getActivityId());
         activityMapper.updateComment(activity.getId());
     }
 }

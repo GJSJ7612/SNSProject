@@ -15,6 +15,7 @@
         <association property="author" javaType="org.example.snsproject.entity.User">
             <id property="id" column="author_id"/>
             <result property="nickname" column="nickname"/>
+            <result property="email" column="email"/>
         </association>
         <collection property="tags" ofType="org.example.snsproject.entity.blog.Tag">
             <id property="id" column="tag_id"/>
@@ -69,6 +70,7 @@
             <id property="id" column="author_id"/>
             <result property="avatar" column="avatar"/>
             <result property="nickname" column="nickname"/>
+            <result property="email" column="nickname"/>
         </association>
         <association property="category" javaType="org.example.snsproject.entity.blog.Category">
             <id property="id" column="category_id"/>

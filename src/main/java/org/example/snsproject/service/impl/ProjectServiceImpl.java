@@ -79,6 +79,8 @@ public class ProjectServiceImpl implements ProjectService {
         int uid = (Integer) claims.get("id");
         application.setUid(uid);
         // 前端无需提供申请者的ID
+        application.setPid(pid);
+        // 使用路径中的pid，无需前端在application中提供pid
         int lines = pm.apply(application);
         log.info("数据库application表中{}行受到影响", lines);
         return application.getId();

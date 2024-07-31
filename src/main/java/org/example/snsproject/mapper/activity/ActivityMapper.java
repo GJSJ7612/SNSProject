@@ -82,7 +82,7 @@ public interface ActivityMapper {
     })
     List<Activity> getActivityUser(int id);
 
-    @Update("update activity_brief set view_counts=view_counts+1 where id=#{id}")
+    @Update("update activity_brief set comment_counts=comment_counts+1 where id=#{id}")
     void updateComment(int id);
 
     @Select("SELECT id, nickname ,email FROM user WHERE id = #{userId}")

@@ -12,6 +12,8 @@
         <result property="title" column="title"/>
         <result property="viewCounts" column="view_counts"/>
         <result property="weight" column="weight"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
         <association property="author" javaType="org.example.snsproject.entity.User">
             <id property="id" column="author_id"/>
             <result property="nickname" column="nickname"/>

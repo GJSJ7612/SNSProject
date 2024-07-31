@@ -12,15 +12,13 @@ import java.util.List;
 public class Activity {
     private int id;
     private int commentCounts;
-    @JsonFormat(pattern = "YYYY.MM.dd HH:mm")
+    @JsonFormat(pattern = "YYYY-MM-dd HH:mm")
     private LocalDateTime createDate;
     private String summary;
     private String title;
     private int viewCounts;
     private int weight;
-    @JsonFormat(pattern = "YYYY.MM.dd")
     private LocalDateTime startDate;
-    @JsonFormat(pattern = "YYYY.MM.dd")
     private LocalDateTime endDate;
     private int authorId;
     private User author;
